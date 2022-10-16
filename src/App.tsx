@@ -49,6 +49,14 @@ function App() {
             mode: "markers",
             marker: { color: "red" },
           },
+          {
+            name: "input",
+            x: xarray,
+            y: yarray,
+            type: "scatter",
+            mode: "lines",
+            marker: { color: "red" },
+          },
         ]}
         layout={{
           width: 620,
