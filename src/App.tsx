@@ -1,24 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Plot from "react-plotly.js";
+import Coords from "./components/Coords";
+import "./App.css";
 
 function App() {
+  const [xarray, setXarray] = useState<Array<number>>([]);
+  const [yarray, setYarray] = useState<Array<number>>([]);
+  const incrementArrays = (): number => {
+    setXarray([...xarray, NaN]);
+    setYarray([...yarray, NaN]);
+    return xarray.length;
+  };
+  const edge = 1.5 * Math.max(...xarray, ...yarray, 7.5);
+  const basisX = [0, 1];
+  const basisY = [1, 0];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App flex flex-row items-center">
+      <Coords
+        setX={setXarray}
+        X={xarray}
+        setY={setYarray}
+        Y={yarray}
+        increment={incrementArrays}
+      />
+      <Plot
+        data={[
+          {
+            name: "basis",
+            x: basisX,
+            y: basisY,
+            type: "scatter",
+            mode: "markers",
+            marker: { color: "green" },
+          },
+          {
+            name: "input",
+            x: xarray,
+            y: yarray,
+            type: "scatter",
+            mode: "markers",
+            marker: { color: "red" },
+          },
+        ]}
+        layout={{
+          width: 620,
+          height: 540,
+          xaxis: { range: [-edge, edge] },
+          yaxis: { range: [-edge, edge] },
+          title: "",
+        }}
+      />
     </div>
   );
 }
