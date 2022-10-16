@@ -11,7 +11,15 @@ function App() {
     setYarray([...yarray, NaN]);
     return xarray.length;
   };
-  const edge = 1.5 * Math.max(...xarray, ...yarray, 7.5);
+  const analyzex = xarray.map((c) => {
+      if (Number.isNaN(c)) return 0;
+      return c;
+    });
+  const analyzey = yarray.map((c) => {
+      if (Number.isNaN(c)) return 0;
+      return c;
+    });
+  const edge = 1.5 * Math.max(...analyzex, ...analyzey, 7.5);
   const basisX = [0, 1];
   const basisY = [1, 0];
   return (

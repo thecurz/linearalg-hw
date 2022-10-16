@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Row from "./Row";
 import Choose from "./Choose";
-import { rotationX } from "../utilities/transformations";
-
+import { rotationX, reflection, homotecia } from "../utilities/transformations";
+import Rotation from "./Rotation";
+import Homotecia from "./Homotecia";
 interface props {
   setX: any;
   setY: any;
@@ -16,6 +17,8 @@ const Coords = (props: props) => {
   const [removeCoord, setRemoveCoord] = useState();
   const [coords, setCoords] = useState<Array<JSX.Element | null>>([]);
   const [showOptions, setShowOptions] = useState(false);
+  const [choice, setChoice] = useState("");
+
   useEffect(() => {
     if (updateX !== undefined) {
       const newX = props.X.map((c, i) => {
@@ -55,12 +58,23 @@ const Coords = (props: props) => {
 
   return (
     <div className="">
-      <Choose showOptions={showOptions} setShowOptions={setShowOptions} />
-      <div>Set coordinates</div>
+      <Choose
+        optionlist={["homotecia", "rotacion", "reflexion-x", "reflexion-y"]}
+        setter = {setChoice}
+        showOptions={showOptions}
+        setShowOptions={setShowOptions}
+      />
+      {choice == "rotacion" && <Rotation />}
+      {choice == "homotecia" && <Homotecia />}
+      <div>Ingresar coordenadas</div>
       <button
         className="h-10 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white m-2 py-1 px-2 border border-blue-500 hover:border-transparent rounded"
-        onClick={() => {
-          rotationX(props.X, props.Y, 45, props.setX, props.setY);
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+          e.preventDefault();
+          if (choice == "rotacion") rotationX(props.X, props.Y, 45, props.setX, props.setY);
+          if (choice == "homotecia") homotecia(props.X, props.Y, 2, props.setX, props.setY);
+          if (choice == "reflexion-x") reflection(props.X, props.Y, true, props.setX, props.setY);
+          if (choice == "reflexion-y") reflection(props.X, props.Y, false, props.setX, props.setY);
         }}
       >
         transform

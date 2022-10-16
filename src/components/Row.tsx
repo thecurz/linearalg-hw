@@ -24,13 +24,13 @@ const Row = (props: rowprops) => {
     <div className="flex flex-row items-center">
       <div>
         <input
-          className="border-dashed border-2 border-sky-500 m-2 w-20"
+          className="border-solid border-2 border-blue-500 m-2 w-20"
           onChange={drawX}
         />
       </div>
       <div>
         <input
-          className="border-dashed border-2 border-sky-500 m-2 w-20"
+          className="border-solid border-2 border-blue-500 m-2 w-20"
           onChange={drawY}
         />
       </div>
