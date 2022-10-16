@@ -18,6 +18,7 @@ const Coords = (props: props) => {
   const [coords, setCoords] = useState<Array<JSX.Element | null>>([]);
   const [showOptions, setShowOptions] = useState(false);
   const [choice, setChoice] = useState("");
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
     if (updateX !== undefined) {
@@ -64,15 +65,15 @@ const Coords = (props: props) => {
         showOptions={showOptions}
         setShowOptions={setShowOptions}
       />
-      {choice == "rotacion" && <Rotation />}
-      {choice == "homotecia" && <Homotecia />}
+      {choice == "rotacion" && <Rotation setValue = {setValue}/>}
+      {choice == "homotecia" && <Homotecia setValue = {setValue}/>}
       <div>Ingresar coordenadas</div>
       <button
         className="h-10 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white m-2 py-1 px-2 border border-blue-500 hover:border-transparent rounded"
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
-          if (choice == "rotacion") rotationX(props.X, props.Y, 45, props.setX, props.setY);
-          if (choice == "homotecia") homotecia(props.X, props.Y, 2, props.setX, props.setY);
+          if (choice == "rotacion") rotationX(props.X, props.Y, value, props.setX, props.setY);
+          if (choice == "homotecia") homotecia(props.X, props.Y, value, props.setX, props.setY);
           if (choice == "reflexion-x") reflection(props.X, props.Y, true, props.setX, props.setY);
           if (choice == "reflexion-y") reflection(props.X, props.Y, false, props.setX, props.setY);
         }}
