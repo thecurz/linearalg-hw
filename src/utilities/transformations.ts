@@ -32,7 +32,8 @@ const homotecia = (
   Y: Array<number>,
   c: number,
   Xsetter: Function,
-  Ysetter: Function
+  Ysetter: Function,
+  center: Array<number>
 ) => {
   const tempX = [];
   const tempY = [];
@@ -41,10 +42,10 @@ const homotecia = (
     [0, c],
   ]);
   for (var i = 0; i < X.length; i++) {
-    var vec = math.matrix([X[i], Y[i]]);
+    var vec = math.matrix([X[i] - center[0], Y[i] - center[1]]);
     vec = math.multiply(vec, mat);
-    tempX.push(vec.toArray()[0]);
-    tempY.push(vec.toArray()[1]);
+    tempX.push(vec.toArray()[0] + center[0]);
+    tempY.push(vec.toArray()[1] + center[1]);
   }
   Xsetter(tempX);
   Ysetter(tempY);
@@ -55,21 +56,25 @@ const rotationX = (
   Y: Array<number>,
   angle: number,
   Xsetter: Function,
-  Ysetter: Function
+  Ysetter: Function,
+  center: Array<number>
+
 ) => {
   const tempX = [];
   const tempY = [];
   angle = (angle * math.pi) / 180;
+  console.log(typeof(center))
   const mat = math.matrix([
     [math.cos(angle), math.sin(angle)],
     [-1 * math.sin(angle), math.cos(angle)],
   ]);
   for (var i = 0; i < X.length; i++) {
-    var vec = math.matrix([X[i], Y[i]]);
+    var vec = math.matrix([X[i] - center[0], Y[i] - center[1]]);
     vec = math.multiply(vec, mat);
-    tempX.push(vec.toArray()[0]);
-    tempY.push(vec.toArray()[1]);
+    tempX.push(vec.toArray()[0] + center[0]);
+    tempY.push(vec.toArray()[1] + center[1]);
   }
+  //console.log(tempX)
   Xsetter(tempX);
   Ysetter(tempY);
 };
