@@ -35,7 +35,6 @@ function App() {
       <h1 className="mt-8 text-center text-3xl">
         Grupo 1: Homotecia y semejanza
       </h1>
-      <h2 className="text-center text-xl text-gray-400">Carlos Castilla</h2>
       <div className="App flex flex-row items-center justify-center">
         <Coords
           setX={setXarray}
